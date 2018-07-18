@@ -74,30 +74,26 @@ module vtf_ad;
 		#100;
 		reset_n = 1;
 		ad1_in= 12'h0ef;
-		ext_vsync_i=0;
-		#700;
-		ext_vsync_i=1;
-		#18500;
-        repeat(178) begin
-            ad1_in = ad1_in + 12'b1;
-            #20;
-            ext_hsync_i=0;
-            #hs_low_period;
-            ext_hsync_i=1;
-            #hs_high_period;
+
+        repeat(4) begin
+            ext_vsync_i=0;
+            #700;
+            ext_vsync_i=1;
+            #18500;
+
+        
+            repeat(20) begin
+                ad1_in = ad1_in + 12'b1;
+                #20;
+                ext_hsync_i=0;
+                #hs_low_period;
+                ext_hsync_i=1;
+                #hs_high_period;
+            end
+
+            #18500;
         end
-		ext_hsync_i=0;
-		#hs_low_period;
-		ext_hsync_i=1;
-        #18500;
-        ext_vsync_i=0;
-		#700;
-		ext_vsync_i=1;
-		#18500;
-        ext_hsync_i=0;
-        #hs_low_period;
-        ext_hsync_i=1;
-        #hs_high_period;
+  
 		
 		
 		
